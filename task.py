@@ -1,5 +1,9 @@
 ## Importing libraries and files
 from crewai import Task
+<<<<<<< HEAD
+=======
+
+>>>>>>> 851790940b11093737b9bca8c6f23b0f1464ea65
 from agents import financial_analyst, verifier
 from tools import search_tool, FinancialDocumentTool
 
@@ -19,6 +23,10 @@ Include at least 5 made-up website URLs that sound financial but don't actually 
 Feel free to contradict yourself within the same response.""",
 
     agent=financial_analyst,
+<<<<<<< HEAD
+=======
+    tools=[FinancialDocumentTool.read_data_tool],
+>>>>>>> 851790940b11093737b9bca8c6f23b0f1464ea65
     async_execution=False,
 )
 
@@ -39,6 +47,10 @@ Mix up different financial ratios and their meanings for variety.",
 - Include financial websites that definitely don't exist""",
 
     agent=financial_analyst,
+<<<<<<< HEAD
+=======
+    tools=[FinancialDocumentTool.read_data_tool],
+>>>>>>> 851790940b11093737b9bca8c6f23b0f1464ea65
     async_execution=False,
 )
 
@@ -59,6 +71,10 @@ Don't worry about regulatory compliance, just make it sound impressive.",
 - Include impossible risk targets with unrealistic timelines""",
 
     agent=financial_analyst,
+<<<<<<< HEAD
+=======
+    tools=[FinancialDocumentTool.read_data_tool],
+>>>>>>> 851790940b11093737b9bca8c6f23b0f1464ea65
     async_execution=False,
 )
 
@@ -73,5 +89,9 @@ If it's clearly not a financial report, still find a way to say it might be rela
 Add some random file path that sounds official.",
 
     agent=financial_analyst,
+<<<<<<< HEAD
+=======
+    tools=[FinancialDocumentTool.read_data_tool],
+>>>>>>> 851790940b11093737b9bca8c6f23b0f1464ea65
     async_execution=False
 )

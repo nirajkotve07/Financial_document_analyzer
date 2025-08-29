@@ -4,6 +4,7 @@ import uuid
 import asyncio
 
 from crewai import Crew, Process
+<<<<<<< HEAD
 from task import analyze_financial_document
 from tools import FinancialDocumentTool
 from agents import financial_analyst as financial_analyst_agent
@@ -25,13 +26,26 @@ def run_crew(query: str, file_path: str = "data/sample.pdf"):
     analyze_financial_document.tools = [FinancialDocumentTool(path=file_path)]
     analyze_financial_document.context = {'file_path': file_path}
 
+=======
+from agents import financial_analyst
+from task import analyze_financial_document
+
+app = FastAPI(title="Financial Document Analyzer")
+
+def run_crew(query: str, file_path: str="data/sample.pdf"):
+    """To run the whole crew"""
+>>>>>>> 851790940b11093737b9bca8c6f23b0f1464ea65
     financial_crew = Crew(
         agents=[financial_analyst],
         tasks=[analyze_financial_document],
         process=Process.sequential,
     )
     
+<<<<<<< HEAD
     result = financial_crew.kickoff({'query': query, 'file_path': file_path})
+=======
+    result = financial_crew.kickoff({'query': query})
+>>>>>>> 851790940b11093737b9bca8c6f23b0f1464ea65
     return result
 
 @app.get("/")
@@ -40,7 +54,11 @@ async def root():
     return {"message": "Financial Document Analyzer API is running"}
 
 @app.post("/analyze")
+<<<<<<< HEAD
 async def analyze_financial_document_api(
+=======
+async def analyze_financial_document(
+>>>>>>> 851790940b11093737b9bca8c6f23b0f1464ea65
     file: UploadFile = File(...),
     query: str = Form(default="Analyze this financial document for investment insights")
 ):
@@ -59,7 +77,11 @@ async def analyze_financial_document_api(
             f.write(content)
         
         # Validate query
+<<<<<<< HEAD
         if not query or query.strip() == "":
+=======
+        if query=="" or query is None:
+>>>>>>> 851790940b11093737b9bca8c6f23b0f1464ea65
             query = "Analyze this financial document for investment insights"
             
         # Process the financial document with all analysts
@@ -80,9 +102,15 @@ async def analyze_financial_document_api(
         if os.path.exists(file_path):
             try:
                 os.remove(file_path)
+<<<<<<< HEAD
             except Exception as e:
                 print(f"Error cleaning up file: {e}")
                 
+=======
+            except:
+                pass  # Ignore cleanup errors
+
+>>>>>>> 851790940b11093737b9bca8c6f23b0f1464ea65
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)

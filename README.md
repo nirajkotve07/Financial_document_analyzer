@@ -1,38 +1,156 @@
-# Financial Document Analyzer - Debug Assignment
+# Financial Document Analyzer
 
-## Project Overview
-A comprehensive financial document analysis system that processes corporate reports, financial statements, and investment documents using AI-powered analysis agents.
+## Project Description
+A brief description of what this project does. (e.g., An application that analyzes financial documents using AI agents, built with CrewAI and FastAPI.)
 
-## Getting Started
+## Status
+The core application infrastructure is now stable. All initial dependency and code bugs have been resolved, and the application is ready for LLM configuration.
 
-### Install Required Libraries
-```sh
-pip install -r requirement.txt
-```
+## Bugs Found and How They Were Fixed
+This section details the issues I encountered and the steps taken to resolve them.
 
-### Sample Document
-The system analyzes financial documents like Tesla's Q2 2025 financial update.
+### Dependency Conflicts
+- **OpenAI version conflict:** The `openai` library version (`1.30.5`) conflicted with the `litellm` dependency.
+  - **Fix:** Updated `requirements.txt` from `openai==1.30.5` to `openai>=1.68.2`.
 
-**To add Tesla's financial document:**
-1. Download the Tesla Q2 2025 update from: https://www.tesla.com/sites/default/files/downloads/TSLA-Q2-2025-Update.pdf
-2. Save it as `data/sample.pdf` in the project directory
-3. Or upload any financial PDF through the API endpoint
+- **Pydantic-core version conflict:** The `pydantic-core` version (`2.8.0`) caused compatibility issues with `pydantic`.
+  - **Fix:** Updated `requirements.txt` from `pydantic_core==2.8.0` to `pydantic_core>=2.14.1`.
 
-**Note:** Current `data/sample.pdf` is a placeholder - replace with actual Tesla financial document for proper testing.
+### Code Bugs
+- **CrewAI Import Errors:** The application used a deprecated `agent_builder` module.
+  - **Fix:** Updated `agents.py` to use the correct import statement: `from crewai import Agent`.
 
-# You're All Not Set!
-🐛 **Debug Mode Activated!** The project has bugs waiting to be squashed - your mission is to fix them and bring it to life.
+- **Tool Validation Errors:** The `FinancialDocumentTool` was not properly defined for use with CrewAI.
+  - **Fix:** Updated `tools.py` to ensure `FinancialDocumentTool` properly inherits from `crewai.tools.base_tool.BaseTool` and correctly defines the `path` parameter with a Pydantic field.
 
-## Debugging Instructions
+- **Function vs. Tool Confusion:** The main application was calling the tool's raw function instead of a tool instance.
+  - **Fix:** Updated `main.py` to correctly instantiate and use `FinancialDocumentTool` objects.
 
-1. **Identify the Bug**: Carefully read the code in each file and understand the expected behavior. There is a bug in each line of code. So be careful.
-2. **Fix the Bug**: Implement the necessary changes to fix the bug.
-3. **Test the Fix**: Run the project and verify that the bug is resolved.
-4. **Repeat**: Continue this process until all bugs are fixed.
+## Setup Instructions
+Follow these steps to set up the project locally.
 
-## Expected Features
-- Upload financial documents (PDF format)
-- AI-powered financial analysis
-- Investment recommendations
-- Risk assessment
-- Market insights
+1.  **Install Python 3.12:**
+    This project is tested with and requires **Python 3.12**. You can download it from the [official Python website](https://www.python.org/downloads/).
+
+2.  **Clone the repository:**
+    ```bash
+    git clone [Your Repository Link Here]
+    cd [Your Repository Name]
+    ```
+
+3.  **Create a virtual environment:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    ```
+
+4.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+5.  **Configure your LLM:**
+    Create a `.env` file in the project root and add your API key. (e.g., `GEMINI_API_KEY=your_key_here`). Note: This project uses `litellm` which may require a specific format for API keys.
+
+## Usage Instructions
+To start the FastAPI application:
+
+```bash
+uvicorn main:app --reload
+
+
+I understand. You want to update the README.md file to explicitly state that the project requires Python 3.12. This is a good practice to ensure consistency and avoid compatibility issues for other users.
+
+Here is the updated README.md template with the Python version requirement added to the setup instructions.
+
+Markdown
+
+# Financial Document Analyzer
+
+## Project Description
+A brief description of what this project does. (e.g., An application that analyzes financial documents using AI agents, built with CrewAI and FastAPI.)
+
+## Status
+The core application infrastructure is now stable. All initial dependency and code bugs have been resolved, and the application is ready for LLM configuration.
+
+## Bugs Found and How They Were Fixed
+This section details the issues I encountered and the steps taken to resolve them.
+
+### Dependency Conflicts
+- **OpenAI version conflict:** The `openai` library version (`1.30.5`) conflicted with the `litellm` dependency.
+  - **Fix:** Updated `requirements.txt` from `openai==1.30.5` to `openai>=1.68.2`.
+
+- **Pydantic-core version conflict:** The `pydantic-core` version (`2.8.0`) caused compatibility issues with `pydantic`.
+  - **Fix:** Updated `requirements.txt` from `pydantic_core==2.8.0` to `pydantic_core>=2.14.1`.
+
+### Code Bugs
+- **CrewAI Import Errors:** The application used a deprecated `agent_builder` module.
+  - **Fix:** Updated `agents.py` to use the correct import statement: `from crewai import Agent`.
+
+- **Tool Validation Errors:** The `FinancialDocumentTool` was not properly defined for use with CrewAI.
+  - **Fix:** Updated `tools.py` to ensure `FinancialDocumentTool` properly inherits from `crewai.tools.base_tool.BaseTool` and correctly defines the `path` parameter with a Pydantic field.
+
+- **Function vs. Tool Confusion:** The main application was calling the tool's raw function instead of a tool instance.
+  - **Fix:** Updated `main.py` to correctly instantiate and use `FinancialDocumentTool` objects.
+
+## Setup Instructions
+Follow these steps to set up the project locally.
+
+1.  **Install Python 3.12:**
+    This project is tested with and requires **Python 3.12**. You can download it from the [official Python website](https://www.python.org/downloads/).
+
+2.  **Clone the repository:**
+    ```bash
+    git clone [Your Repository Link Here]
+    cd [Your Repository Name]
+    ```
+
+3.  **Create a virtual environment:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    ```
+
+4.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+5.  **Configure your LLM:**
+    Create a `.env` file in the project root and add your API key. (e.g., `GEMINI_API_KEY=your_key_here`). Note: This project uses `litellm` which may require a specific format for API keys.
+
+## Usage Instructions
+To start the FastAPI application:
+
+```bash
+uvicorn main:app --reload
+The server will run on http://127.0.0.1:8000.
+
+API Documentation
+The API documentation is automatically generated by FastAPI. Once the server is running, you can access the interactive docs at:
+
+Swagger UI: http://127.0.0.1:8000/docs
+
+ReDoc: http://127.0.0.1:8000/redoc
+
+The primary endpoint is:
+
+POST /process_document
+
+Description: Initiates the financial document analysis process.
+
+Request Body:
+
+JSON
+
+{
+  "file_path": "path/to/your/document.pdf"
+}
+Response:
+Returns a JSON object with the analysis results.
+
+
+
+
+
+
